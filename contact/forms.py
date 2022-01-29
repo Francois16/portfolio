@@ -1,6 +1,7 @@
 import email
 from django import forms
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
+from django.conf import settings
 
 # Models
 from .models import Contact
@@ -56,6 +57,19 @@ class ContactForm(forms.Form):
         phone_number = form["phone_number"]
         message = form["message"]
         subject = form["subject"]
-        files = form["files"]
+        files = self.files.getlist("files")
 
-        print(f"sending email form {first_name} {last_name}")
+        message = f"{first_name} {last_name}\n{email}\n{phone_number}\n\n{message}"
+
+        email = EmailMessage(
+            subject=subject,
+            body=message,
+            from_email=email,
+            to=(settings.HOST_EMAIL,),
+        )
+
+        if files:
+            for file in files:
+                email.attach(file.name, content=file.content_type)
+
+        email.send()
