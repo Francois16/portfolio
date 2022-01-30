@@ -44,7 +44,8 @@ class Category(models.Model):
         ordering = ["name"]
         verbose_name_plural = "Categories"
 
-    name = models.CharField(max_length=20)
+    # Make name unique
+    name = models.CharField(max_length=20, unique=True)
 
     def __str__(self):
         return self.name
@@ -58,7 +59,8 @@ class Tag(models.Model):
         ordering = ["name"]
         verbose_name_plural = "Tags"
 
-    name = models.CharField(max_length=10)
+    # make field unique
+    name = models.CharField(max_length=10, unique=True)
 
     def __str__(self):
         return self.name
