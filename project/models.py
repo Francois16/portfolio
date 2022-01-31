@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from urllib.parse import urlparse
 
 """
 Project
@@ -37,6 +38,10 @@ class Project(models.Model):
 
     def get_absolute_url(self):
         return reverse("index")
+
+    def get_url_text(self):
+        parsed_url = urlparse(self.url)
+        return parsed_url.netloc
 
 
 class Category(models.Model):
