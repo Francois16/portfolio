@@ -31,10 +31,18 @@ class ContactForm(forms.Form):
     last_name = forms.CharField(max_length=255)
     email = forms.EmailField()
     phone_number = forms.CharField(max_length=14)
-    is_subscribed = forms.BooleanField(initial=False, required=False)
+    is_subscribed = forms.BooleanField(
+        initial=False,
+        required=False,
+        label="Do you want to subscribe to our newsletter?",
+    )
     message = forms.CharField(widget=forms.Textarea())
     subject = forms.CharField(max_length=255)
-    files = forms.FileField(required=False, widget=forms.ClearableFileInput(attrs={"multiple": True}))
+    files = forms.FileField(
+        required=False,
+        help_text="Add any relevant files here if you have a design/idea drawn up already.",
+        widget=forms.ClearableFileInput(attrs={"multiple": True}),
+    )
 
     def create_contact_model(self):
         form = self.clean()
