@@ -142,8 +142,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
 # Email
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-HOST_EMAIL = env("HOST_EMAIL")
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST_USER = env("HOST_USER")
+EMAIL_HOST_PASSWORD = env("HOST_PASSWORD")
+EMAIL_USE_TLS = True
+EMAIL_PORT = 25
+EMAIL_HOST = "smtp.pepipost.com"
+EMAIL_RECIPIENT = "Fpaul1274@gmail.com"
 
 # User
 AUTH_USER_MODEL = "account.CustomUser"

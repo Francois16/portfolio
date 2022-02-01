@@ -72,12 +72,12 @@ class ContactForm(forms.Form):
         email = EmailMessage(
             subject=subject,
             body=message,
-            from_email=email,
-            to=(settings.HOST_EMAIL,),
+            from_email="fpaul1274@pepisandbox.com",
+            to=(settings.EMAIL_RECIPIENT,),
         )
 
         if files:
             for file in files:
-                email.attach(file.name, content=file.content_type)
+                email.attach(file.name, content=file.file.read())
 
         email.send()
